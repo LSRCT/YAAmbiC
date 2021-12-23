@@ -31,9 +31,10 @@ def calc_rgb_vals(screencap, plot_test_img=False):
     # use color temp of 6500K
     ctemp_6500k = np.array([255, 249, 253])
     ctemp_3500k = np.array([255, 196, 137])
-    ctemp_scale = ctemp_6500k / np.array([255, 255, 255])
+    ctemp_calib = np.array([200, 255, 100]) # calibration so white is white, different for your LEDs
+    ctemp_scale = ctemp_calib / np.array([255, 255, 255])
     # scale brightness, otherwise LEDs are too bright
-    ctemp_scale *= 0.3
+    ctemp_scale *= 0.2
 
     border_width = 200
     n_leds_short = 18
@@ -78,12 +79,13 @@ def main():
     print("UDP target port: %s" % UDP_PORT)
     with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sock:
         d = d3dshot.create(capture_output="numpy")
-        img_ct = 0
+        out = d.screenshot()
+        rgb_vals_old = calc_rgb_vals(out, plot_test_img=0)
         while 1:
             t0 = time.time()
-            img_ct += 1
             out = d.screenshot()
             rgb_vals = calc_rgb_vals(out, plot_test_img=0)
+            rgb_vals = (rgb_vals_old * 0.1 + rgb_vals * 0.9).astype(int)
             MESSAGE = bytes(list(rgb_vals.flatten()))
             sock.sendto(MESSAGE, (UDP_IP, UDP_PORT))
             print(f"Processing took {(time.time()-t0)}")
