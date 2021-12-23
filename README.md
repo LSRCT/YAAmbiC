@@ -22,7 +22,9 @@ This method achieves ~60 fps.
 ## Calibration
 Most RGB strips dont display perfect white at 255 255 255. This needs to be calibrated, for me the best values seem to be 200 255 100. This varies from product to product, adjust the calibration by displaying a white picture on your screen and checking if the backlight matches.
 
-
+![](images/img_no_calib.jpg)  |  ![](images/img_after_calib.jpg)
+:-------------------------:|:-------------------------:
+Before calibration           |  After calibration
 ## TODO
 - remove hardcoded wifi password
 - integrate mqtt interface to use as light without screencapture
