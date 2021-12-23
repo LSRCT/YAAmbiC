@@ -1,5 +1,5 @@
 # YAAmbiC
-Yet another ambilight clone. Many did it before, many will do it after, this is how I did it
+Yet Another Ambilight Clone. Many did it before, many will do it after, this is how I did it
 
 ## Setup
 Hardware:
