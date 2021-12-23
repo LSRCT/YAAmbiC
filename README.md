@@ -19,6 +19,10 @@ Screencapture is done using https://pypi.org/project/d3dshot/, a fast screencap 
 After screencapture the image is cropped to the borders and filtered.
 This method achieves ~60 fps.
 
+## Calibration
+Most RGB strips dont display perfect white at 255 255 255. This needs to be calibrated, for me the best values seem to be 200 255 100. This varies from product to product, adjust the calibration by displaying a white picture on your screen and checking if the backlight matches.
+
+
 ## TODO
 - remove hardcoded wifi password
 - integrate mqtt interface to use as light without screencapture
