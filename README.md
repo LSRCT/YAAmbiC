@@ -7,6 +7,9 @@ Hardware:
 - esp8266
 
 The LEDs require 5V DC, using a reasonably sized screen and appropriate brightness a USB3 outlet should be able to power this.
+
+*EDIT* After changing the LED count from 60 to 144 using USB to power the thing is not possible anymore
+
 Communication is done via UDP over Wifi to avoid using a Serial to USB adapter.
 The color information is calculated by a python script, applying some smoothing before sending.
 
