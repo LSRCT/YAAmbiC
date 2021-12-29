@@ -3,14 +3,14 @@
 #include <WiFiUdp.h>
 
 #define PIN            5  // Pin 5 is D1 on esp8266 dev board
-#define NUMPIXELS      (18 + 32 + 18) // 18 right 32 top 18 left
+#define NUMPIXELS      (35 + 74 + 35) // 35 right 74 top 35 left
 
 // TODO somehow dont hardcore this
 const char* ssid     = "LSRCT";
 const char* password = "83067046472468411597";
 unsigned int localUdpPort = 4210;  // local port to listen on
 // chars are convenient because rgb values go from 0->255 anyway
-unsigned char incomingPacket[255] = {0};  // buffer for incoming packets
+unsigned char incomingPacket[144*3] = {0};  // buffer for incoming packets
 
 WiFiUDP Udp;
 
@@ -44,7 +44,7 @@ void loop(){
     // receive incoming UDP packets
     Serial.printf("Received %d bytes from %s, port %d\n", packetSize, Udp.remoteIP().toString().c_str(), Udp.remotePort());
     // this is just for printing since we already know how long the packet is (-> n_leds)
-    int len = Udp.read(incomingPacket, 255);
+    int len = Udp.read(incomingPacket, NUMPIXELS*3);
     if (len > 0)
     {
       incomingPacket[len] = 0;
