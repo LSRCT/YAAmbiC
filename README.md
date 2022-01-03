@@ -28,9 +28,25 @@ Most RGB strips dont display perfect white at 255 255 255. This needs to be cali
 ![](images/img_no_calib.jpg)  |  ![](images/img_after_calib.jpg)
 :-------------------------:|:-------------------------:
 Before calibration           |  After calibration
-## TODO
-- remove hardcoded wifi password
-- integrate mqtt interface to use as light without screencapture
 
+## HomeAssistant
+The MQTT interface makes the devices usable as a normal light source in HomeAssistant.
+Currently there are 2 modes implemented.
+- RGB Mode: Displays the selected color uniformly
 
+- Ambient Mode: Listens for UDP messages containing colors
+
+It can be added throught the following addition to the configuration.yaml file:
+
+    light:                                                                      
+      - platform: mqtt                                                          
+        schema: json                                                            
+        name: mqtt_ambient_1                                                    
+        state_topic: "light/ambient1"                                           
+        command_topic: "light/ambient1/set"                                     
+        brightness: true                                                        
+        rgb: true                                                               
+        effect: true                                                            
+        effect_list: ["rgb", "ambient"]
+    
 
