@@ -39,14 +39,6 @@ def calc_rgb_vals(screencap, plot_test_img=False):
     :return: The RGB values of the screencap.
     """
 
-    # use color temp of 6500K
-    ctemp_6500k = np.array([255, 249, 253])
-    ctemp_3500k = np.array([255, 196, 137])
-    ctemp_calib = np.array([255, 230, 100]) # calibration so white is white, different for your LEDs
-    ctemp_scale = ctemp_calib / np.array([255, 255, 255])
-    # scale brightness, otherwise LEDs are too bright
-    ctemp_scale *= 0.2
-
     border_width = 300
     n_leds_short = 35
     n_leds_long = 72
@@ -67,9 +59,9 @@ def calc_rgb_vals(screencap, plot_test_img=False):
     avg_right = cut_img_divisible(avg_right, n_leds_short)
 
     # avg the pixels for each LED
-    vals_top = (avg_top.reshape((n_leds_long, -1, 3)).mean(axis=1) * ctemp_scale).astype(int)
-    vals_left = (avg_left.reshape((n_leds_short, -1, 3)).mean(axis=1) * ctemp_scale).astype(int)
-    vals_right = (avg_right.reshape((n_leds_short, -1, 3)).mean(axis=1) * ctemp_scale).astype(int)
+    vals_top = (avg_top.reshape((n_leds_long, -1, 3)).mean(axis=1)).astype(int)
+    vals_left = (avg_left.reshape((n_leds_short, -1, 3)).mean(axis=1)).astype(int)
+    vals_right = (avg_right.reshape((n_leds_short, -1, 3)).mean(axis=1)).astype(int)
 
     # test image to plot zones
     if plot_test_img:
