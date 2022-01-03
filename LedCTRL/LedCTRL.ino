@@ -13,22 +13,21 @@ unsigned int localUdpPort = 4210;  // local port to listen on
 unsigned char incomingPacket[144*3] = {0};  // buffer for incoming packets
 
 WiFiUDP Udp;
-
 Adafruit_NeoPixel pixels = Adafruit_NeoPixel(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
 
 void setup() {
   // init the led pixels
   pixels.begin();
   pixels.clear();
-
+  setup_wifi();
   Serial.begin(115200);
   Serial.println();
+}
 
-  // connect to wifi
+void setup_wifi() {
   Serial.printf("Connecting to %s ", ssid);
   WiFi.begin(ssid, password);
-  while (WiFi.status() != WL_CONNECTED)
-  {
+  while (WiFi.status() != WL_CONNECTED){
     delay(500);
     Serial.print(".");
   }
